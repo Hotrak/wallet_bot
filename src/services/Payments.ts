@@ -23,7 +23,7 @@ export class Payments {
 
 		const payment: Payment = {
 			id: uuidv1(),
-			categoryId: 1,
+			categoryId: data.categoryId,
 			sum: data.sum,
 			date: new Date(),
 		}

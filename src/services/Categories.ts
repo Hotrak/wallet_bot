@@ -1,27 +1,24 @@
 import fs from "fs";
-import { v1 as uuidv1 } from 'uuid';
-import { Payment } from "./Payments";
-
 export interface Category {
 	id: number | string,
 	name: string,
 }
+export class Category {
+	private fileName: string = "category.json"
 
-export  class Category {
 	get() {
-		return JSON.parse(fs.readFileSync("category.json").toString()) as Category[];
+		return JSON.parse(fs.readFileSync(this.fileName).toString()) as Category[];
 	}
 	seed() {
+		const categories = ["Еда Обед", "Eда магазин", "Еда доставка", "Транспорт", "Одежда", "Прочее"];
 
-		const categories = ["Еда", "Прочее", "Транспорт", "Одежда"];
-
-		const result: Category[] = categories.map(categoryName => {
+		const result: Category[] = categories.map((categoryName, index) => {
 			return {
-				id: uuidv1(),
+				id: index + 1,
 				name: categoryName,
 			}
 		}) as Category[];
 
-		fs.writeFile('category.json', JSON.stringify(result), () => {});
+		fs.writeFile(this.fileName, JSON.stringify(result), () => {});
 	}
 }
