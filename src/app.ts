@@ -4,6 +4,19 @@ import { Update } from "typegram";
 import { Payments } from "./services/Payments";
 import { Category } from "./services/Categories";
 
+
+const express = require('express')
+const expressApp = express()
+
+const port = process.env.PORT || 4000
+expressApp.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+expressApp.listen(port, () => {
+	console.log(`Listening on port ${port}`)
+})
+
 enum Action {
 	NEW_PAY = "NEW_PAY",
 	PAY_LIST = "PAY_LIST"
@@ -25,7 +38,8 @@ const categoryService = new Category();
 // });
 
 const bot: Telegraf<Context<Update>> = new Telegraf(
-	process.env.BOT_TOKEN as string,
+	// process.env.BOT_TOKEN as string,
+	"5376522392:AAE5pYH99NjGeuGRgOB9KHvmC-l540Ql1GE"
 );
 
 bot.start((ctx) => {
