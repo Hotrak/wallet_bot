@@ -9,9 +9,12 @@ const expressApp = express();
 
 let selectedCategory: number = -1;
 
+const paymentService = new Payments();
+const categoryService = new Category();
+
 const port = process.env.PORT || 4000;
 expressApp.get("/", (req: any, res: any) => {
-	res.send("Hello World!");
+	res.send(paymentService.get());
 });
 
 expressApp.listen(port, () => {
@@ -30,8 +33,6 @@ enum State {
 
 let state: State = State.UN_SET;
 
-const paymentService = new Payments();
-const categoryService = new Category();
 
 categoryService.seed();
 
@@ -111,8 +112,7 @@ bot.on("text", (ctx) => {
 bot.action(/^category\s\w+/, (ctx, next) => {
 
 	const categoryId = ctx.match.input.split(" ")[1];
-	if(typeof categoryId == "number")
-		selectedCategory = categoryId as number;
+	selectedCategory = categoryId as any as number;
 
 	state = State.WAIT_SUM;
 	return ctx.reply(Action.NEW_PAY + " 👍").then(() => next());
