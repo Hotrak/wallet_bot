@@ -9,7 +9,7 @@ const express = require('express')
 const expressApp = express()
 
 const port = process.env.PORT || 4000
-expressApp.get('/', (req, res) => {
+expressApp.get('/', ( req:any , res:any) => {
   res.send('Hello World!')
 })
 
